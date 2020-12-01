@@ -22,7 +22,7 @@ h1{
     background-position: top center;
 }
 .mainWrapper{
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     display: flex;
 }
@@ -41,8 +41,8 @@ h1{
 .hideTitle {
     /* display: block; */
     display: none;
-    width: 100%;
-    height: 518px;
+    width: 627px;
+    height: 458px;
 
     background-image: linear-gradient(rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.74));
     color: #fff;
@@ -52,6 +52,11 @@ h1{
     transition: all 0.3s;
     text-align: center;
 }
+.img-row2{
+    width: 627px;
+    height: 438px;
+}
+
 @-webkit-keyframes bounce-right {
     25% {
         -webkit-transform: translateX(200px);
