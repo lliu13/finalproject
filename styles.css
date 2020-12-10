@@ -21,6 +21,49 @@ body{
     
     height: 100%; 
 }
+
+.img-xyzk{
+    /* width: 1200px; */
+    height:100%;
+    margin: 0 auto;
+}
+
+.page {
+    height: 100%;
+    width: 100%;
+    font-size: 126px;
+    display: -webkit-box;
+    /*Safari*/
+    display: -moz-box;
+    /*Firefox*/
+    display: -ms-flexbox;
+    /*IE*/
+    display: -webkit-flex;
+    /*Chrome*/
+    display: flex;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.img-xyz {
+display: block;
+width: 100%;
+height:100%;
+margin: 0 auto;
+}
+.liNo{
+padding-left: 2px;
+padding-bottom: 2px;
+}
+
+
 h1{
     text-align: center;
 }
