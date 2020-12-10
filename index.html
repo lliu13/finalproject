@@ -1,40 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
+ 
 <head>
-  <title>Project</title>
-  <link rel="stylesheet" href="styles.css" type="text/css">
-
+    <meta charset="UTF-8">
+    <title>My Home Page</title>
+   <link rel="stylesheet" href="styles.css">
+    <script src="jquery.min.js"></script>
 </head>
-
+ 
 <body>
-  <h1>
+    <div id="mao">
+        <div class="page" id="item-0" style="background-color: pink;">
+            <img src="http://luaoliu.work/assets/img/1.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-1" style="background-color: palegreen;">
+            <img src="http://luaoliu.work/assets/img/2.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-2" style="background-color: yellow;">
+            <img src="http://luaoliu.work/assets/img/3.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-3" style="background-color: #E91E63;">
+            <img src="http://luaoliu.work/assets/img/4.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-4" style="background-color: teal;">
+            <img src="http://luaoliu.work/assets/img/5.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-5" style="background: wheat;">
+            <img src="http://luaoliu.work/assets/img/6.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-6" style="background-color: yellowgreen;">
+            <img src="http://luaoliu.work/assets/img/7.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+        <div class="page" id="item-7" style="background-color: rgb(174, 189, 143);">
+            <img src="http://luaoliu.work/assets/img/12.jpg" alt="4jpg" class="img-xyzk">
+        </div>
+    </div>
+ <!--cite from  https://www.cnblogs.com/lxk0301/p/8538645.html-->
+    <script type="text/javascript">
     
-  </h1>
-<div id="moveDiv" class="bar">
-    <div class="dialog">
-      <a href="#">Start</a> 
-    </div>
-   <img src="cat.jpg" alt="dog"/>
-</div>
-<div class="downDiv">
-</div>
-<div class="mainWrapper">
-    <div class="flex-item">
-      <div class="hideImgTitle posrelative">
-        <img src="http://luaoliu.work/assets/img/6.jpg" alt="4jpg" class="img-row2" />
-        <a href="#" class="hideTitle">Game</a>
-      
-      </div>
-    </div>
-    <div class="flex-item">
-      <div class="hideImgTitle posrelative">
-        <img src="http://luaoliu.work/assets/img/12.jpg" alt="4jpg" class="img-row2" />
-        <a href="#" class="hideTitle">Game</a>
-      
-      </div>
-    </div>
-</div>
+        $(function ($) {
+            $.fn.screen = function (options) {
+                var $this = this;//frist div
+                var set = $.extend({
+                    before: [],
+                    after: []
+                }, options);
+ 
+                $this.css({
+                    overflow: 'hidden',
+                    position: 'fixed',
+                    width: '100%',
+                    height: '100%',
+                    left: '0',
+                    top: '0'
+                });
+                var ch = $this.children('div');
+                $this.empty();
+                var secondDiv = $('<div></div>').css({
+                    position: "relative",
+                    left: '0',
+                    top: '0',
+                    width: '100%',
+                    height: '100%',
+                    visibility: "visible"
+                });
+                secondDiv.appendTo($this);
+                ch.css({
+                    height: '100%',
+                    width: '100%'
+                }).appendTo(secondDiv);
+                var navbarUl = $("<ul></ul>").css({
+                    position: 'absolute',
+                    top: '50%',
+                    "z-index": "800",
+                    right: "10%"
+                });
+ 
+                ch.each(function (i) {
+                    var barele = $("<li><span class='liNo'>"+(i+1)+"</span></li>").attr("index", i).css({
+                        border: "3px solid #2876B3",
+                        "border-radius": "50%",
+                        width: "15px",
+                        height: "15px",
+                        "list-style": "none",
+                        cursor: "point",
+                        "margin-bottom": "6px",
+                        "background-color": (i == 0 ? "#fff" : "transparent")
+                    });
+                    barele.appendTo(navbarUl);
+                });
+                //console.log(navbarUl.height()); //print  0
+                //should be add it to html document , then set the top pozision 
+                navbarUl.appendTo($this);
+            
+                navbarUl.css({
+                    "margin-top": -parseInt(navbarUl.height()) / 2 + "px"
+                });
+                //judge the browse
+                var wheelName = navigator.userAgent.indexOf("Firefox") > 0 ? "DOMMouseScroll" : "mousewheel";
+ 
+                 
+                $this.bind(wheelName, function () {
+                    var event = window.event || arguments.callee.caller.arguments[0];
+                    //console.log(event);
+                    var contentV = 0;
+                    //
+                    if (event.wheelDelta) {
+                        contentV = Math.floor(event.wheelDelta / 120) * 60;
+ 
+                    } else if (event.detail) {
+                        contentV = -Math.floor(event.detail / 3) * 60;
+                    }
+                    //console.log(contentV);
+                    if (contentV < 0) {
+                        //scroll down is 1，scroll up is -1
+                        console.log("excute scroll down");
+                        slide(1);
+                    } else {
+                        console.log("excute scroll up");
+                        slide(-1);
+                    }
+                });
+ 
+                var currentPage = 0;//current page
+                var lg = secondDiv.children("div").length;
+                //var sht=_i.children('div').outerHeight();//  
+                var flag = true;
+ 
+             
+                //when the n equal 1 then scroll down, n equal -1 then scroll up
+                function slide(n) {
+                    if (!flag) {
+ 
+                        return;
+                    }
+                    flag = false;
+                    if (n > 0 && currentPage < (lg - 1)) {
+                        console.log("excute scroll down");
+                        if (set.before[currentPage]) {
+                            set.before[currentPage]();
+                        }
+                        currentPage++;
+                        animateDown(currentPage);
+ 
+                    } else {
+                        if (n < 0 && currentPage > 0) {
+                            console.log("excute scroll up")
+                            if (set.before[currentPage]) {
+                                set.before[currentPage]();
+                            }
+                            currentPage--;
+                            animateDown(currentPage);
+                        } else {
+                            flag = true;
+                        }
+                    }
+                }
+                function animateDown(c) {
+                    secondDiv.animate({ top: -c * 100 + '%' }, 'slow', function () {
+                        navbarUl.find('li').css({ background: 'transparent' });
+                        navbarUl.find('li').eq(c).css("background", "#fff");
+                        if (set.after[c]) {
+                            set.after[c]();
+                        }
+                        flag = true;
+                    });
+                }
+                //init the box height
+                ch.height($(window).height());
+                //when the windows change the box height change 
+                $(window).resize(function () {
+                    ch.height($(window).height());
+                });
+ 
+                navbarUl.children('li').on('click', function () {
+                    var $index = $(this).index();
+                    animateDown($index);
+                    currentPage = $index;
+                });
+            }
+        }(jQuery));
+ 
+ 
+    </script>
 </body>
-
+ 
 </html>
+<script>
+    //cite the methon
+    $(function () {
+        $('#mao').screen();
+    });
+</script>
